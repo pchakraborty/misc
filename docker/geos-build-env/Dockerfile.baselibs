@@ -1,0 +1,31 @@
+# OpenMPI and its dependency, gcc 7.2.1
+FROM mpi/openmpi:3.0.0
+
+# Python
+COPY --from=continuumio/anaconda:latest /opt/conda /opt/conda
+ENV PATH /opt/conda/bin:$PATH
+
+# Set these values
+ENV name ESMA-Baselibs
+ENV version 5.1.4
+ENV config gfortran_7.2.1-openmpi_3.0.0
+
+ENV name_version ${name}-${version}
+
+COPY ./baselibs/${name_version}.tar.gz /
+
+RUN yum install -y git byacc bison flex expat-devel texinfo epel-release && \
+    yum install -y cmake3 && ln -s /usr/bin/cmake3 /usr/bin/cmake && \
+    mkdir -p /baselibs && cd /baselibs && \
+    tar zxvf /${name_version}.tar.gz && \
+    cd ${name_version}/src && \
+    make install ESMF_COMM=openmpi CONFIG_SETUP=${config} && \
+    \rm -rf /baselibs/${name_version}/src && \
+    \rm -f /${name_version}.tar.gz
+
+ENV BASEDIR /baselibs/${name_version}/x86_64-unknown-linux-gnu/${config}
+
+CMD echo "${name} - version: ${version}, config: ${config}, BASEDIR: ${BASEDIR}"
+
+# Build command
+# > docker build -f Dockerfile.baselibs -t esma-baselibs/<config>:<version> .

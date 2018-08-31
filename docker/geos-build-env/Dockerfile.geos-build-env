@@ -1,0 +1,12 @@
+# OpenMPI and its dependency, gcc 7.2.1
+FROM esma-baselibs:5.1.4
+
+# Intel MKL
+COPY --from=intel-mkl:2018.1.163 /opt/intel /opt/intel
+ENV MKLPATH /opt/intel/compilers_and_libraries_2018.1.163/linux/mkl/lib/intel64
+
+# Some more dependencies
+RUN yum install -y perl-Env tcsh
+
+# Build command
+# > docker build -f Dockerfile.geos-build-env -t pchakraborty/geos-build-env:<version> .

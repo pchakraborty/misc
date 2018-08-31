@@ -1,0 +1,21 @@
+FROM compiler/gcc:7.2.1
+
+ENV myOpenMPI openmpi-3.0.0
+
+# Download and build ${myOpenMPI}
+RUN mkdir /bld && cd /bld && \
+    yum install -y wget && \
+    wget https://www.open-mpi.org/software/ompi/v3.0/downloads/${myOpenMPI}.tar.gz && \
+    tar zxvf ${myOpenMPI}.tar.gz && \
+    cd ${myOpenMPI} && \
+    ./configure --prefix=/opt/${myOpenMPI} --enable-static && \
+    make -j 8 && make install && \
+    cd / && \rm -rf /bld
+
+# Add ${myOpenMPI} to path
+ENV OPENMPI /opt/${myOpenMPI}
+ENV PATH /opt/${myOpenMPI}/bin:$PATH
+ENV LD_LIBRARY_PATH /opt/${myOpenMPI}/lib:$LD_LIBRARY_PATH
+
+# Build command
+# > docker build -f Dockerfile.openmpi -t mpi/openmpi:3.0.0 .
