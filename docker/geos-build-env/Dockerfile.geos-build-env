@@ -1,9 +1,9 @@
-# OpenMPI and its dependency, gcc 7.2.1
-FROM esma-baselibs:5.1.4
+# ESMA Baselibs and its dependencies (gcc, openmpi, anaconda)
+FROM pchakraborty/esma-baselibs:5.2.4
 
 # Intel MKL
-COPY --from=intel-mkl:2018.1.163 /opt/intel /opt/intel
-ENV MKLPATH /opt/intel/compilers_and_libraries_2018.1.163/linux/mkl/lib/intel64
+COPY --from=pchakraborty/intel-mkl:2019.1.144 /opt/intel /opt/intel
+ENV MKLPATH /opt/intel/compilers_and_libraries/linux/mkl/lib/intel64
 
 # Some more dependencies
 RUN yum install -y perl-Env tcsh

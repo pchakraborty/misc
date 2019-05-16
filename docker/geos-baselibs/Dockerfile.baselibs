@@ -1,14 +1,14 @@
-# OpenMPI and its dependency, gcc 7.2.1
-FROM mpi/openmpi:3.0.0
+# OpenMPI and its dependency, gcc 8.2.1
+FROM pchakraborty/mpi-openmpi:4.0.1
 
 # Python
 COPY --from=continuumio/anaconda:latest /opt/conda /opt/conda
 ENV PATH /opt/conda/bin:$PATH
 
 # Set these values
-ENV name ESMA-Baselibs
-ENV version 5.1.4
-ENV config gfortran_7.2.1-openmpi_3.0.0
+ENV name esma-baselibs
+ENV version 5.2.4
+ENV config gfortran_8.2.1-openmpi_4.0.1
 
 ENV name_version ${name}-${version}
 
@@ -18,7 +18,7 @@ RUN yum install -y git byacc bison flex expat-devel texinfo epel-release && \
     yum install -y cmake3 && ln -s /usr/bin/cmake3 /usr/bin/cmake && \
     mkdir -p /baselibs && cd /baselibs && \
     tar zxvf /${name_version}.tar.gz && \
-    cd ${name_version}/src && \
+    cd ESMA-Baselibs && \
     make install ESMF_COMM=openmpi CONFIG_SETUP=${config} && \
     \rm -rf /baselibs/${name_version}/src && \
     \rm -f /${name_version}.tar.gz
