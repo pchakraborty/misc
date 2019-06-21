@@ -3,10 +3,19 @@ FROM pchakraborty/esma-baselibs:5.2.4
 
 # Intel MKL
 COPY --from=pchakraborty/intel-mkl:2019.1.144 /opt/intel /opt/intel
-ENV MKLPATH /opt/intel/compilers_and_libraries/linux/mkl/lib/intel64
+ENV MKLROOT /opt/intel/mkl
+
+# ecbuild
+RUN cd / && \
+	git clone https://github.com/JCSDA/ecbuild.git && \
+	cd ecbuild && git checkout develop && \
+	mkdir bld && cd bld && \
+	cmake -DCMAKE_MODULE_PATH=/ecbuild -DCMAKE_INSTALL_PREFIX=/opt/ecbuild .. && \
+	make install && rm -rf /ecbuild
+ENV PATH /opt/ecbuild/bin:$PATH
 
 # Some more dependencies
-RUN yum install -y perl-Env tcsh
+RUN yum install -y perl-Env tcsh ImageMagick texlive
 
 # Build command
 # > docker build -f Dockerfile.geos-build-env -t pchakraborty/geos-build-env:<version> .
