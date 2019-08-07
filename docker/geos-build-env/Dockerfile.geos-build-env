@@ -1,21 +1,27 @@
 # ESMA Baselibs and its dependencies (gcc, openmpi, anaconda)
-FROM pchakraborty/esma-baselibs:5.2.4
+FROM gmao/esma-baselibs:5.2.4
 
 # Intel MKL
 COPY --from=pchakraborty/intel-mkl:2019.1.144 /opt/intel /opt/intel
 ENV MKLROOT /opt/intel/mkl
 
-# ecbuild
+# update git to version 2
 RUN cd / && \
-	git clone https://github.com/JCSDA/ecbuild.git && \
-	cd ecbuild && git checkout develop && \
-	mkdir bld && cd bld && \
-	cmake -DCMAKE_MODULE_PATH=/ecbuild -DCMAKE_INSTALL_PREFIX=/opt/ecbuild .. && \
-	make install && rm -rf /ecbuild
-ENV PATH /opt/ecbuild/bin:$PATH
+    # update git to version 2
+    yum install -y epel-release && \
+    yum remove -y git && \
+    rpm -U https://centos7.iuscommunity.org/ius-release.rpm && \
+    yum install -y git2u
+
+# install manage_externals
+RUN cd / && \
+    git clone https://github.com/GEOS-ESM/manage_externals.git && \
+    cd manage_externals && \
+    git checkout geos
+ENV PATH /manage_externals:$PATH
 
 # Some more dependencies
 RUN yum install -y perl-Env tcsh ImageMagick texlive
 
 # Build command
-# > docker build -f Dockerfile.geos-build-env -t pchakraborty/geos-build-env:<version> .
+# > docker build -f Dockerfile.geos-build-env -t gmao/geos-build-env:<version> .
