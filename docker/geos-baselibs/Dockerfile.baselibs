@@ -20,10 +20,10 @@ RUN yum install -y git byacc bison flex expat-devel texinfo epel-release && \
     tar zxvf /${name_version}.tar.gz && \
     cd ESMA-Baselibs && \
     make install ESMF_COMM=openmpi CONFIG_SETUP=${config} && \
-    \rm -rf /baselibs/${name_version}/src && \
+    \rm -rf /baselibs/ESMA-Baselibs && \
     \rm -f /${name_version}.tar.gz
 
-ENV BASEDIR /baselibs/${name_version}/x86_64-unknown-linux-gnu/${config}
+ENV BASEDIR /baselibs/x86_64-unknown-linux-gnu/${config}
 
 CMD echo "${name} - version: ${version}, config: ${config}, BASEDIR: ${BASEDIR}"
 
