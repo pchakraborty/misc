@@ -1,5 +1,5 @@
 # OpenMPI and its dependency, gcc 8.2.1
-FROM pchakraborty/mpi-openmpi:4.0.1
+FROM gmao/mpi-openmpi:4.0.1
 
 # Python
 COPY --from=continuumio/anaconda:latest /opt/conda /opt/conda
