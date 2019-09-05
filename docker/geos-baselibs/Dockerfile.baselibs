@@ -7,7 +7,7 @@ ENV PATH /opt/conda/bin:$PATH
 
 # Set these values
 ENV name esma-baselibs
-ENV version 5.2.4
+ENV version 5.2.7
 ENV config gfortran_8.2.1-openmpi_4.0.1
 
 ENV name_version ${name}-${version}
@@ -18,9 +18,9 @@ RUN yum install -y git byacc bison flex expat-devel texinfo epel-release && \
     yum install -y cmake3 && ln -s /usr/bin/cmake3 /usr/bin/cmake && \
     mkdir -p /baselibs && cd /baselibs && \
     tar zxvf /${name_version}.tar.gz && \
-    cd ESMA-Baselibs && \
+    cd ${name_version} && \
     make install ESMF_COMM=openmpi CONFIG_SETUP=${config} && \
-    \rm -rf /baselibs/ESMA-Baselibs && \
+    \rm -rf /baselibs/${name_version} && \
     \rm -f /${name_version}.tar.gz
 
 ENV BASEDIR /baselibs/x86_64-unknown-linux-gnu/${config}
@@ -28,4 +28,4 @@ ENV BASEDIR /baselibs/x86_64-unknown-linux-gnu/${config}
 CMD echo "${name} - version: ${version}, config: ${config}, BASEDIR: ${BASEDIR}"
 
 # Build command
-# > docker build -f Dockerfile.baselibs -t esma-baselibs/<config>:<version> .
+# > docker build -f Dockerfile.baselibs -t gmao/esma-baselibs:<version> .
