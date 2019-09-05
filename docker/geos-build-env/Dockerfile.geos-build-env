@@ -21,7 +21,7 @@ RUN cd / && \
 ENV PATH /manage_externals:$PATH
 
 # Some more dependencies
-RUN yum install -y perl-Env tcsh ImageMagick texlive
+RUN yum install -y perl-Env tcsh ImageMagick # texlive
 
 # Build command
 # > docker build -f Dockerfile.geos-build-env -t gmao/geos-build-env:<version> .
