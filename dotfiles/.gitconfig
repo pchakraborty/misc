@@ -1,0 +1,46 @@
+[user]
+    name = Purnendu Chakraborty
+    email = ??
+
+[color]
+    ui = true
+    status = always
+    branch = always
+
+[alias]
+    co = checkout
+    ci = commit
+    st = status
+    br = branch
+    unstage = reset HEAD --
+    hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+
+[diff]
+    tool = xxdiff
+
+[difftool "xxdiff"]
+    cmd = "/usr/local/bin/xxdiff $LOCAL $REMOTE"
+
+[difftool]
+    prompt = false
+
+[merge]
+    tool = xxdiff
+
+[mergetool "xxdiff"]
+    cmd = "/usr/local/bin/xxdiff $LOCAL $MERGED $REMOTE"
+
+[submodule]
+    recurse = true
+
+[push]
+    recurseSubmodules = check
+
+[core]
+    pager = less -FRX
+
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true

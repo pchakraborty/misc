@@ -1,0 +1,12 @@
+HOMEBREW=$HOME/Local/homebrew
+
+export PATH=$HOMEBREW/bin:$PATH
+export PATH=$HOMEBREW/sbin:$PATH
+export HOMEBREW_CASK_OPTS="--appdir=~/Applications --fontdir=/Library/Fonts"
+
+# bash completion
+source $HOMEBREW/completions/bash/brew
+for rcfile in $HOMEBREW/etc/bash_completion.d/*; do
+    source $rcfile
+done
+

@@ -1,0 +1,3 @@
+export RUSTUP_HOME=$NOBACKUP/sw/rust/rustup
+export CARGO_HOME=$NOBACKUP/sw/rust/cargo
+export PATH=$PATH:$NOBACKUP/sw/rust/cargo/bin

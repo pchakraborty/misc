@@ -1,0 +1,7 @@
+alias ls="ls -G"
+alias rm='echo "<rm> is unsafe - use <trash> instead"'
+alias cat="$HOME/Local/homebrew/bin/bat"
+alias diff="$HOME/Local/homebrew/bin/colordiff --suppress-common-lines -y"
+alias emacs="$HOME/Applications/emacs.app/Contents/macOS/emacs -nw"
+alias gitxdiff="git difftool"
+alias meld="$HOME/Applications/Meld.app/Contents/MacOS/Meld"
