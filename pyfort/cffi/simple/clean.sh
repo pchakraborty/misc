@@ -1,2 +1,2 @@
-rm -f *~ libpyfunc.so *.h *.c *.o a.out
+rm -f *~ *intermediate.* a.out
 rm -rf __pycache__

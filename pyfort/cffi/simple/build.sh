@@ -1,2 +1,2 @@
 python build.py
-gfortran -L./ -lpyfunc main.f90
+gfortran -L./ -lintermediate main.f90
