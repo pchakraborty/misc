@@ -3,7 +3,7 @@ TMPFILEBASE = 'intermediate'
 module = '''
 from {} import ffi
 import fort2py
-from mainloop import march_in_time
+from loop import march_in_time
 
 @ffi.def_extern()
 def march_in_time_wrapper(nx, ny, nz, ox, oy, oz, infld_ptr, outfld_ptr, dim1, dim2, dim3):

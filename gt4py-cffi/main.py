@@ -5,7 +5,7 @@ from geometry import Geometry
 from initialize import get_inout_fields
 from stencil import double_laplacian, euler_step, time_swap
 from tools.plotting import plot_two_ij_slices
-from mainloop import march_in_time
+from loop import march_in_time
 
 if __name__ == '__main__':
 
@@ -21,3 +21,5 @@ if __name__ == '__main__':
     
     nx, ny, nz, _, (ox, oy, oz) = geometry
     out_field = march_in_time(nx, ny, nz, ox, oy, oz, in_field, out_field)
+    np.set_printoptions(formatter={'float': lambda x: "{0:0.2f}".format(x)})
+    print(out_field[:,:,0])
