@@ -4,7 +4,7 @@ import gt4py
 from gt4py import gtscript
 from gt4py.gtscript import Field
 
-backend = 'gtx86'
+backend = 'numpy'
 
 @gtscript.function
 def laplacian(in_field: Field[np.float64], coeff: np.float64 = 1.0):
