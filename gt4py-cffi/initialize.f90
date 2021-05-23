@@ -23,9 +23,7 @@ contains
 
     ! Start here
     nhalo = geometry%nhalo
-    dim(1) = geometry%nz
-    dim(2) = geometry%ny + 2 * nhalo
-    dim(3) = geometry%nx + 2 * nhalo
+    dim = [geometry%nz, geometry%ny+2*nhalo, geometry%nx+2*nhalo]
     
     allocate(in_field(dim(1), dim(2), dim(3)), source=0.0_real64)
     allocate(out_field, mold=in_field)
@@ -40,8 +38,6 @@ contains
     end do
 
     ! write(*,"(*(g0))") ((in_field(1,j,i),"  ",i=1,dim(3)), new_line("A"), j=1,dim(2))
-    ! print *, ''
-    ! print *, in_field
     
   end subroutine get_inout_fields
   
