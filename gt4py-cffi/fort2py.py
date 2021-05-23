@@ -15,17 +15,15 @@ def convert_1darr(ffi, fptr, dim1):
 def convert_2darr(ffi, fptr, dim1, dim2):
     ftype = ffi.getctype(ffi.typeof(fptr).item)
     assert ftype in TYPEMAP
-    arrshape = (dim2, dim1)
     return np.frombuffer(
         ffi.buffer(fptr, dim1*dim2*ffi.sizeof(ftype)),
         TYPEMAP[ftype],
-    ).reshape(arrshape)
+    ).reshape((dim2, dim1))
 
 def convert_3darr(ffi, fptr, dim1, dim2, dim3):
     ftype = ffi.getctype(ffi.typeof(fptr).item)
     assert ftype in TYPEMAP
-    arrshape = (dim3, dim2, dim1)
     return np.frombuffer(
         ffi.buffer(fptr, dim1*dim2*dim3*ffi.sizeof(ftype)),
         TYPEMAP[ftype],
-    ).reshape(arrshape)
+    ).reshape((dim3, dim2, dim1))
