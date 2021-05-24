@@ -19,7 +19,7 @@ if __name__ == '__main__':
     
     in_field, out_field = get_inout_fields(backend, geometry)
     
-    nx, ny, nz, _, (ox, oy, oz) = geometry
-    out_field = march_in_time(nx, ny, nz, ox, oy, oz, in_field, out_field)
+    nx, ny, nz, _, origin = geometry
+    out_field = march_in_time(nx, ny, nz, origin, in_field, out_field)
     np.set_printoptions(formatter={'float': lambda x: "{0:0.2f}".format(x)})
     print(out_field[:,:,0])
