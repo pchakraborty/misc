@@ -3,7 +3,7 @@ program main
   use iso_fortran_env, only: real64
   use Geometry, only: Geometry_T
   use Initialize, only: get_inout_fields
-  use PythonFortranInterface, only: march_in_time_wrapper
+  use PythonFortranInterface, only: march_in_time_interface
 
   implicit none
 
@@ -21,7 +21,7 @@ program main
        )
 
   call get_inout_fields(geometry, in_field, out_field, dim)
-  call march_in_time_wrapper( &
+  call march_in_time_interface( &
        geometry%nx, geometry%ny, geometry%nz, &
        geometry%origin(1), geometry%origin(2), geometry%origin(3), & ! origin
        in_field, out_field, &

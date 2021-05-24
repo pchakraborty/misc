@@ -3,10 +3,10 @@ module PythonFortranInterface
   implicit none
 
   private
-  public :: march_in_time_wrapper
+  public :: march_in_time_interface
   
   interface
-     subroutine march_in_time_wrapper( &
+     subroutine march_in_time_interface( &
           nx, ny, nz, &
           ox, oy, oz, & ! origin
           in_field, out_field, &
@@ -18,7 +18,7 @@ module PythonFortranInterface
        integer(c_int), value, intent(in) :: dim1, dim2, dim3
        real(c_double), intent(in) :: in_field(dim1, dim2, dim3)
        real(c_double), intent(out) :: out_field(dim1, dim2, dim3)
-     end subroutine march_in_time_wrapper
+     end subroutine march_in_time_interface
   end interface
   
 end module PythonFortranInterface
