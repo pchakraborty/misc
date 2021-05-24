@@ -7,8 +7,9 @@ from loop import march_in_time
 
 @ffi.def_extern()
 def march_in_time_interface(nx, ny, nz, ox, oy, oz, infld_ptr, outfld_ptr, dim1, dim2, dim3):
-    in_field = fort2py.convert_3darr(ffi, infld_ptr, dim1, dim2, dim3)
-    out_field = fort2py.convert_3darr(ffi, outfld_ptr, dim1, dim2, dim3)
+    dim = (dim1, dim2, dim3)
+    in_field = fort2py.convert_arr(ffi, infld_ptr, dim)
+    out_field = fort2py.convert_arr(ffi, outfld_ptr, dim)
     march_in_time(nx, ny, nz, ox, oy, oz, in_field, out_field)
 '''.format(TMPFILEBASE)
 
