@@ -23,9 +23,9 @@ program main
   call get_inout_fields(geometry, in_field, out_field, dim)
   call march_in_time_interface( &
        geometry%nx, geometry%ny, geometry%nz, &
-       geometry%origin(1), geometry%origin(2), geometry%origin(3), & ! origin
+       geometry%origin, &
        in_field, out_field, &
-       dim(1), dim(2), dim(3) & ! dimensions of in/out fields
+       dim & ! dimensions of in/out fields
        )
   write(*,'(*(g0.2))') ((out_field(1,j,i),"  ",i=1,dim(3)), new_line("A"), j=1,dim(2))
 

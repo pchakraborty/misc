@@ -6,17 +6,18 @@ import fort2py
 from loop import march_in_time
 
 @ffi.def_extern()
-def march_in_time_interface(nx, ny, nz, ox, oy, oz, infld_ptr, outfld_ptr, dim1, dim2, dim3):
-    dim = (dim1, dim2, dim3)
+def march_in_time_interface(nx, ny, nz, origin_ptr, infld_ptr, outfld_ptr, dim_ptr):
+    dim = fort2py.convert_arr(ffi, dim_ptr, (3,))
+    origin = fort2py.convert_arr(ffi, origin_ptr, (3,))
     in_field = fort2py.convert_arr(ffi, infld_ptr, dim)
     out_field = fort2py.convert_arr(ffi, outfld_ptr, dim)
-    march_in_time(nx, ny, nz, (ox, oy, oz), in_field, out_field)
+    march_in_time(nx, ny, nz, origin, in_field, out_field)
 '''.format(TMPFILEBASE)
 
 import cffi
 ffibuilder = cffi.FFI()
 
-header = 'extern void march_in_time_interface(int, int, int, int, int, int, double *, double *, int, int, int);'
+header = 'extern void march_in_time_interface(int, int, int, int *, double *, double *, int *);'
 with open(TMPFILEBASE+'.h', 'w') as f:
     f.write(header)
 ffibuilder.embedding_api(header)
