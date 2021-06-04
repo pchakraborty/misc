@@ -2,15 +2,16 @@ TMPFILEBASE = 'intermediate'
 
 module = '''
 from {} import ffi
-import fort2py
+import fort2py as f2p
 from loop import march_in_time
 
 @ffi.def_extern()
 def march_in_time_interface(nx, ny, nz, origin_ptr, infld_ptr, outfld_ptr, dim_ptr):
-    dim = fort2py.convert_arr(ffi, dim_ptr, (3,))
-    origin = fort2py.convert_arr(ffi, origin_ptr, (3,))
-    in_field = fort2py.convert_arr(ffi, infld_ptr, dim)
-    out_field = fort2py.convert_arr(ffi, outfld_ptr, dim)
+    dim = f2p.fort2numpy(ffi, dim_ptr, (3,))
+    origin = f2p.fort2numpy(ffi, origin_ptr, (3,))
+    backend = 'numpy'
+    in_field = f2p.fort2gt4py(ffi, infld_ptr, dim, origin, backend)
+    out_field = f2p.fort2gt4py(ffi, outfld_ptr, dim, origin, backend)
     march_in_time(nx, ny, nz, origin, in_field, out_field)
 '''.format(TMPFILEBASE)
 
