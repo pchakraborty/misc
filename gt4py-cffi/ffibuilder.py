@@ -9,7 +9,7 @@ from loop import march_in_time
 def march_in_time_interface(nx, ny, nz, origin_ptr, infld_ptr, outfld_ptr, dim_ptr):
     dim = f2p.fort2numpy(ffi, dim_ptr, (3,))
     origin = f2p.fort2numpy(ffi, origin_ptr, (3,))
-    backend = 'numpy'
+    backend = 'gtx86'
     in_field = f2p.fort2gt4py(ffi, infld_ptr, dim, origin, backend)
     out_field = f2p.fort2gt4py(ffi, outfld_ptr, dim, origin, backend)
     march_in_time(nx, ny, nz, origin, in_field, out_field)
