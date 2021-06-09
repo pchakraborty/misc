@@ -27,6 +27,8 @@ program main
        in_field, out_field, &
        dim & ! dimensions of in/out fields
        )
-  write(*,'(*(g0.2))') ((out_field(1,j,i),"  ",i=1,dim(3)), new_line("A"), j=1,dim(2))
+  do j = 1, dim(2)
+     write(*,'(2x, (*(f4.2, 1x)))') (out_field(1,j,i), i = 1 , dim(3))
+  end do
 
 end program main
